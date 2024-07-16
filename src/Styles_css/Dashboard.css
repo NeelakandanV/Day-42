@@ -1,0 +1,44 @@
+.HomeParent{
+    display: flex;
+    justify-content: space-evenly;
+    min-height: 70%;
+    max-height: max-content;
+    flex-wrap: wrap;
+  }
+  
+  .TeacherCont{  
+    height: 400px;
+    width: 300px;
+    border: 2px solid black;
+    margin: 3px;
+    padding: 4px;
+    align-items: center;
+    text-align: center;
+    background-color: white;
+    color: black;
+  }
+  
+  
+  .TeacherCont img{
+    height:250px;
+    width: 80%;
+    padding: 10px;
+  }
+  
+  .StudentCont{
+    height: 400px;
+    width: 300px;
+    border: 2px solid black;
+    margin: 3px;
+    padding: 4px;
+    align-items: center;
+    text-align: center;
+    background-color: white;
+    color: black;
+  }
+  
+  .StudentCont img{
+    height:250px;
+    width: 80%;
+    padding: 10px;
+  }

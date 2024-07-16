@@ -1,0 +1,48 @@
+.view-btn{
+    margin:6px;
+    border-radius: 50%;
+  }
+
+  .edit-btn{
+    margin:6px;
+    border-radius: 50%;
+  }
+  
+  .delete-btn:hover{
+    background-color: crimson;
+  }
+  
+  .StuReadCont{
+    margin: 3px;
+  }
+  
+  .StuPagiCont{
+    padding: 5px;
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .StuPagiCont a:hover{
+    cursor: pointer;
+    background-color: blue;
+    color: whitesmoke;
+  }
+  
+  .Pagination{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .Pagination a{
+    border: 1px solid black;
+    padding:8px;
+    background-color: aqua;
+    color: black;
+  }
+
+  .StuTableCont{
+    text-align: center;
+  }

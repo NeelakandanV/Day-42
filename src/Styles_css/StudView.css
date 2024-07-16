@@ -1,0 +1,14 @@
+.view-mainCon{
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .view-user{
+    margin: 3px;
+    padding: 5px;
+    background-color: rgb(149, 194, 177);
+    color: black;
+    height: auto;
+    width: fit-content;
+    text-align: left;
+  }

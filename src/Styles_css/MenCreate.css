@@ -1,0 +1,28 @@
+.CreateMenForm{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+  }
+  
+  .MenFormCont{
+    margin: 15px ;
+    padding: 10px;
+    border: 2px solid aliceblue;
+    border-radius: 50px;
+    height: auto;
+    background-color: white;
+    color: black; 
+  }
+
+  .MenCrtBtn{
+    text-align: center;
+  }
+
+  .MenCrt{
+    margin:5px;
+    padding: 10px;
+    min-width: 120px;
+    border: 2px;
+    border-radius: 50px;
+    text-align: center;
+  }

@@ -1,0 +1,44 @@
+.TeachCont{
+    margin: 20px;
+    padding: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  
+  .TeachBoxCont{
+    margin: 15px;
+    border: 2px solid whitesmoke;
+    padding: 50px;
+    width: 500px;
+    height: fit-content;
+    text-align: center;
+    font-weight: 500;
+    color: white;
+    background-color: rgb(74, 48, 87);
+  }
+  
+  .TeachBoxCont a{
+    font-size: larger;
+  }
+  
+  .TeachBoxCont button{
+    margin: 3px;
+    margin-top: 15px;
+    padding: 5px;
+  }
+  
+  .Crebtn{
+    margin: 10px;
+    text-align: right;
+  }
+  
+  .btn-Cont{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin: auto;
+    padding: 8px;
+    text-align: center;
+  }

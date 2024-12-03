@@ -15,7 +15,7 @@ export default function Login(){
   const navigate = useNavigate();
 
   function check(){
-    if(login==="Admin" && password==="Admin@123"){
+    if(login==="hari2000venkatesan@gmail.com" && password==="12345678"){
       toast.success("Login Success!!")
       navigate("/Dashboard")
     }else{

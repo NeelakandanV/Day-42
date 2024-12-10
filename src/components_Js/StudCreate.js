@@ -65,11 +65,11 @@ export default function StudCreate(){
             //console.log(data)
             setStudent([...student,newData])
             navigate("/students")
-            toast.success("Student created successfully!")
+            toast.success(data.message)
         }
         catch(err){
-            alert("Provided Mobile Number or Email Id already exists")
-            console.log(err) 
+            // console.log(err) 
+            toast.error(err.response.data.message)
         }
     }
 

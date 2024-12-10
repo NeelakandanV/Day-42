@@ -24,11 +24,21 @@ import StudViewComp from './components_Js/StudView';
 import MentorViewComp from './components_Js/MentorView';
 import ChangeMentorComp from './components_Js/changeMentor';
 import PrevMentorComp from './components_Js/PrevMentor';
+import Register from './components_Js/RegisterPage';
+import ForgotPassword from './components_Js/ForgotPassword';
+import ResetPassword from './components_Js/ResetPassword';
+import VerifyAccount from './components_Js/VerifyAccount';
+import UserVerification from './components_Js/UserVerification';
 
 function App() {
   return (
     <Routes>
       <Route exact path="/" element={<Login/>}/>
+      <Route path="/Register" element={<Register/>}/>
+      <Route path='/ForgotPassword' element={<ForgotPassword/>}/>
+      <Route path='/ResetPassword/:id/:pin/:token' element={<ResetPassword/>}/>
+      <Route path="/VerifyAccount" element={<VerifyAccount/>}/>
+      <Route path='/Verification/:id/:pin/:token' element={<UserVerification/>}/>
       <Route path="/Dashboard" element={<Dashboard/>}/>
       <Route path="/students" element={<StudRead/>}/>
       <Route path="/mentors" element={<MenRead/>}/>

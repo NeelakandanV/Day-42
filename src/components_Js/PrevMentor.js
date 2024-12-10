@@ -20,21 +20,30 @@ export default function PrevMentorComp(){
     const [prevMenData,setPrevMenData] = useState([]);
 
     useEffect(()=>{
-            const getPrevMentor = async()=>{
-                try{
-                    toast.info("Kindly wait for Sometime!!")
-                    const response = await axios.get(`https://mentor-student-vulz.onrender.com/PreviousMentor/${id}`)
-                    //console.log(response.data)
-                    setPrevMenData(response.data["Old_Mentor_Data"])
-                    //console.log(prevMenData)
-                    toast.success("!Previous Mentor fetch successful")
-                }
-                catch(err){
-                    //console.log(err)
-                    toast.error("!Previous Mentor not available");
-                }
-            };
-    getPrevMentor();
+        const token = localStorage.getItem('token')
+        const getPrevMentor = async()=>{
+            try{
+                toast.info("Kindly wait for Sometime!!")
+                const response = await axios.get(`https://mentor-student-vulz.onrender.com/PreviousMentor/${id}`,{
+                    headers:{
+                        "Authorization":`Bearer ${token}`
+                    }
+                })
+                //console.log(response.data)
+                setPrevMenData(response.data["Old_Mentor_Data"])
+                //console.log(prevMenData)
+                toast.success(response.data.message)
+            }
+            catch(err){
+                //console.log(err)
+                toast.error(err.response.data.message);
+            }
+        };
+        if(token){
+            getPrevMentor()
+        }else{
+            navigate("/")
+        }
     },[])
 
     return(

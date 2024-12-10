@@ -16,17 +16,22 @@ export default function StudViewComp(){
     const {id} = useParams();
 
     useEffect(()=>{
+        const token = localStorage.getItem('token')
         const getData = async()=>{
             try{
                 const StuResponse = await axios.get("https://mentor-student-vulz.onrender.com/students")
-                setLearn(StuResponse.data.filter((ele)=>ele.Roll_No==id))
-                toast.success("Data fetched successfully")
+                setLearn(StuResponse.data.students.filter((ele)=>ele.Roll_No==id))
+                toast.success(StuResponse.data.message)
             }
             catch(err){
-                toast.error("Data not available!!")
+                toast.error(err.response.data.message)
             }
         }
-        getData();
+        if(token){
+            getData()
+        }else{
+            navigate("/")
+        }
     },[])
 
     return(

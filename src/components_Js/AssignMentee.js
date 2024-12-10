@@ -34,6 +34,7 @@ export default function AssignMentee(){
     const navigate = useNavigate();
     const {id} = useParams();
     const [menStud,setMenStud] = useState([]);
+    const token = localStorage.getItem('token')
 
     let StudData = menStud;
     let StudDataArr = [];
@@ -41,18 +42,26 @@ export default function AssignMentee(){
     useEffect(()=>{
       const getData = async()=>{
         try{
-            const response = await axios.get("https://mentor-student-vulz.onrender.com/AssignMentees")
-            const data = await response.data
-            //console.log(data[1]["Students without mentors"])
-            setMenStud(data[1]["Students without mentors"])
-            toast("Students data feched!")
+            const response = await axios.get("https://mentor-student-vulz.onrender.com/AssignMentees",{
+              headers:{
+                "Content-Type":"application/json",
+                "Authorization":`Bearer ${token}`
+              }
+            })
+            // console.log(response.data.data[1]["Students without mentors"])
+            setMenStud(response.data.data[1]["Students without mentors"])
+            toast(response.data.message)
           }
         catch(err){
-          toast.info("All students are assigned with mentors")
-          toast.error("Request failed")
+          toast.error(err.response.data.message)
         }
       }
-      getData();
+      if(token){
+        getData();
+      }
+      else{
+        navigate("/")
+      }
     },[])
 
     for(let i of StudData){
@@ -76,14 +85,15 @@ export default function AssignMentee(){
             const response = await axios.put(`https://mentor-student-vulz.onrender.com/AssignMentees/${id}`,newData,{
                 headers :{
                     "Content-Type":"application/json",
+                    "Authorization":`Bearer ${token}`
                 }
             })
-            const data = await response;
             //console.log(data)
+            toast.success(response.data.message)
             navigate(`/mentees/${id}`)
         }
         catch(err){
-            alert("All students are assigned with mentors")
+            toast.info(err.response.data.message)
         }
     }
 

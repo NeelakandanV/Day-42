@@ -12,32 +12,47 @@ import axios from "axios";
 export default function MenRead(){
     const navigate = useNavigate();
     const [teacher,setTeacher] =useState([]);
+    const token = localStorage.getItem('token')
 
     useEffect(()=>{
         const getData = async()=>{
             try{
-                const MenResponse = await axios.get("https://mentor-student-vulz.onrender.com/mentors")
-                setTeacher(MenResponse.data)
-                toast.success("Data fetched successfully!!")
+                const MenResponse = await axios.get("https://mentor-student-vulz.onrender.com/mentors",{
+                    headers:{
+                        "Authorization":`Bearer ${token}`
+                    }
+                })
+                // console.log(MenResponse.data)
+                setTeacher(MenResponse.data.MentorData)
+                toast.success(MenResponse.data.message)
             }
             catch(err){
-                toast.error("!!Data not available")
+                toast.error(err.response.data.message)
             }
         }
-        getData();
+        if(token){
+            getData()
+        }
+        else{
+            navigate("/")
+        }
     },[])
 
         // For delete a Mentor
         const delData = async(Men_Id)=>{
             try{
-                const response = await axios.delete(`https://mentor-student-vulz.onrender.com/DeleteMentor/${Men_Id}`)
+                const response = await axios.delete(`https://mentor-student-vulz.onrender.com/DeleteMentor/${Men_Id}`,{
+                    headers:{
+                        "Authorization":`Bearer ${token}`
+                    }
+                })
                 //console.log(response);
-                toast.success("Mentor deleted successfully!")
+                toast.success(response.data.message)
                 const data = teacher.filter((std)=>std.Mentor_No!=Men_Id)
                 setTeacher(data)
             }
             catch(err){
-                toast.error("!Delete request failed")
+                toast.error(err.response.data.message)
             }
         }
    

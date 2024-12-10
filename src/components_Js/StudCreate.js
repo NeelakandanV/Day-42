@@ -14,6 +14,7 @@ import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 
 const UserSchemaValidation = yup.object({
@@ -29,6 +30,13 @@ export default function StudCreate(){
     const {student,setStudent} = Appstate();
     const {mentor} = Appstate();
     const navigate = useNavigate();
+    const token = localStorage.getItem('token')
+
+    useEffect(()=>{
+        if(!token){
+          navigate("/")
+        }
+      },[])
 
     const {values,handleChange,handleBlur,handleSubmit,errors,touched} = useFormik({
         initialValues : {
@@ -50,6 +58,7 @@ export default function StudCreate(){
             const response = axios.post("https://mentor-student-vulz.onrender.com/CreateStudent",newData,{
                 headers:{
                     "Content-Type":"application/json",
+                    "Authorization":`Bearer ${token}`
                 }
             })
             const data = await response

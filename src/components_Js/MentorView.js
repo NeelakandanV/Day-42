@@ -5,12 +5,21 @@ import { faBook } from "@fortawesome/free-solid-svg-icons";
 import { faChildren } from "@fortawesome/free-solid-svg-icons";
 import { Appstate } from "../AppContext/AppProvider";
 import { useNavigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
 
 
 export default function MentorViewComp(){
     const {mentor} = Appstate();
     const navigate = useNavigate();
     const {id} = useParams();
+
+    useEffect(()=>{
+        const token = localStorage.getItem('token')
+        if(!token){
+          navigate("/")
+        }
+      },[])
+
     const viewData = mentor.filter((staff)=>id==staff.Mentor_No);
     const Bk = viewData[0];
     const skills = Bk.Tech_Skills;

@@ -6,23 +6,23 @@ import { toast } from "react-toastify";
 import axios from "axios";
 
 
-export default function Login(){
+export default function Register(){
+  const [name,setName] = useState('')
   const [email,setEmail] = useState('')
   const [password,setPassword] = useState('')
 
   const navigate = useNavigate();
- const check = async(email,password)=>{
+ const check = async(name,email,password)=>{
   try{
-    const response = await axios.post(`https://mentor-student-vulz.onrender.com/Login`,{"Email":email,"Password":password},{
+    const response = await axios.post(`https://mentor-student-vulz.onrender.com/Register`,{"Name":name,"Email":email,"Password":password},{
         headers : {
             "Content-Type" : "application/json"
         }
     })
     const data = await response.data;
     //console.log(data.token)
-    localStorage.setItem('token',data.token)
     toast.success(data.message)
-    navigate("/Dashboard")
+    navigate("/")
     }
     catch(err){
         toast.error(err.response.data.message)
@@ -33,9 +33,14 @@ export default function Login(){
       <div className="loginMainPar"> 
          <div className="formCon">
           <h2>ICY Mentor-Student Management Portal</h2>
-             <h3>Welcome Back!!</h3>
+             <h3>Signup here!!</h3>
              <Form>
-              <label><b>Enter your username</b></label>
+             <label><b>Enter your Name</b></label>
+                 <Form.Group className="mb-3" controlId="formBasicEmail">
+                   <Form.Control type="text" placeholder="Enter Your Name" value={name}
+                   onChange={(e)=>setName(e.target.value)} />
+                 </Form.Group>
+              <label><b>Enter your Email</b></label>
                  <Form.Group className="mb-3" controlId="formBasicEmail">
                    <Form.Control type="text" placeholder="Enter Email" value={email}
                    onChange={(e)=>setEmail(e.target.value)} />
@@ -46,12 +51,12 @@ export default function Login(){
                    onChange={(e)=>setPassword(e.target.value)} />
                  </Form.Group>
                <div className="d-grid gap-2">
-                   <Button variant="primary"  size="md" onClick={()=>check(email,password)}>
-                     LOGIN
+                   <Button variant="primary"  size="md" onClick={()=>check(name,email,password)}>
+                     Register
                    </Button>
                    <hr></hr>
                    <a href="/ForgotPassword">Forgot Password?</a>
-                   <a href="/Register">Create an Account!!</a>
+                   <a href="/">Login Now!!</a>
                    <a href="/VerifyAccount">Verify Your Account!</a>
                  </div>
              </Form>

@@ -17,6 +17,7 @@ import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 
 const UserSchemaValidation = yup.object({
@@ -59,6 +60,13 @@ export default function MenCreate(){
     const navigate = useNavigate();
     const theme = useTheme();
     const personName = [];
+    const token = localStorage.getItem('token')
+
+    useEffect(()=>{
+      if(!token){
+        navigate("/")
+      }
+    },[])
 
 
     const {values,handleChange,handleBlur,handleSubmit,errors,touched} = useFormik({
@@ -81,17 +89,18 @@ export default function MenCreate(){
             const response = axios.post("https://mentor-student-vulz.onrender.com/CreateMentor",newData,{
                 headers:{
                     "Content-Type":"application/json",
+                    "Authorization":`Bearer ${token}`
                 }
             })
             const data = await response
             //console.log(data)
             setMentor([...mentor,newData])
             navigate("/mentors")
-            toast.success("Mentor Created Successfully!")
+            toast.success(data.message)
         }
         catch(err){
-            alert("Provided Mobile Number or Email Id already exists")
-            console.log(err) 
+            //console.log(err) 
+            toast.error(err.response.data.message)
         }
     }
 

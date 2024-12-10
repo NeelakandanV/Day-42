@@ -1,7 +1,19 @@
+import { useEffect } from "react";
 import BaseApp from "./BaseApp";
+import { useNavigate } from "react-router-dom";
 
 
 export default function Dashboard(){
+    const navigate = useNavigate();
+
+    useEffect(()=>{
+        const token = localStorage.getItem('token')
+        if(!token){
+          navigate("/")
+        }
+      },[])
+
+
     return(
         <BaseApp PageTitle="Dashboard">
             <div className="HomeParent">

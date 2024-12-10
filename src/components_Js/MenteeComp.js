@@ -12,20 +12,30 @@ export default function MenteeComp(){
     const {id} = useParams();
     let [mentee,setMentee] = useState([]);
     const navigate = useNavigate();
+    const token = localStorage.getItem('token')
 
     useEffect(()=>{
         const mentee = async()=>{
             try{
-                const response = await axios.get(`https://mentor-student-vulz.onrender.com/mentees/${id}`)
-                setMentee(response.data);
-                toast("Mentees fetched successfully!")
+                const response = await axios.get(`https://mentor-student-vulz.onrender.com/mentees/${id}`,{
+                    headers:{
+                        "Authorization":`Bearer ${token}`
+                    }
+                })
+                //console.log(response)
+                setMentee(response.data.Mentees);
+                toast(response.data.message)
             }
             catch(err){
-                alert("Mentor has no mentees")
+                toast.error(err.response.data.message)
                 //console.log(err)
             }
         }
-        mentee()
+        if(token){
+            mentee()
+        }else{
+            navigate("/")
+        }
     },[])
 
         // For Pagination

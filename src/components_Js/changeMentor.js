@@ -11,6 +11,7 @@ import { useFormik } from "formik";
 import { Button } from 'react-bootstrap';
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 
 const UserSchemaValidation = yup.object({
@@ -21,6 +22,13 @@ export default function ChangeMentorComp(){
     const navigate = useNavigate();
     const {id} = useParams();
     const {mentor} = Appstate();
+    const token = localStorage.getItem('token')
+
+    useEffect(()=>{
+        if(!token){
+          navigate("/")
+        }
+      },[])
 
     const {values,handleChange,handleBlur,handleSubmit,errors,touched} = useFormik({
         initialValues : {
@@ -37,17 +45,18 @@ export default function ChangeMentorComp(){
         try{
             const response = await axios.put(`https://mentor-student-vulz.onrender.com/ChangeMentor/${id}`,newData,{
                 headers : {
-                    "Content-Type" : "application/json"
+                    "Content-Type" : "application/json",
+                    "Authorization":`Bearer ${token}`
                 }
             })
             const data = await response;
             //console.log(data)
-            toast.success("Mentor changed successfully!!")
+            toast.success(data.message)
             navigate("/students")
         }
         catch(err){
-            console.log(err)
-            toast.error("!Mentor Change request failed")
+            //console.log(err)
+            toast.error(err.response.data.message)
         }
     }
 

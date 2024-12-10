@@ -11,33 +11,48 @@ import axios from "axios";
 export default function StudRead(){
     const navigate = useNavigate();
     const [learner,setLearner] = useState([]);
+    const token = localStorage.getItem('token')
 
     useEffect(()=>{
         const getData = async()=>{
             try{
-                const StuResponse = await axios.get("https://mentor-student-vulz.onrender.com/students")
-                setLearner(StuResponse.data)
-                toast.success("Data fetched successfully")
+                const StuResponse = await axios.get("https://mentor-student-vulz.onrender.com/students",{
+                    headers:{
+                        "Authorization":`Bearer ${token}`
+                    }
+                })
+                setLearner(StuResponse.data.students)
+                // console.log(StuResponse.data)
+                toast.success(StuResponse.data.message)
             }
             catch(err){
-                toast.error("Data not available!!")
+                toast.error(err.response.data.message)
             }
         }
-        getData();
+        if(token){
+            getData();
+        }
+        else{
+            navigate("/")
+        }
     },[])
 
     
     // For delete a student
     const delData = async(Stu_Id)=>{
         try{
-            const response = await axios.delete(`https://mentor-student-vulz.onrender.com/DeleteStudent/${Stu_Id}`)
+            const response = await axios.delete(`https://mentor-student-vulz.onrender.com/DeleteStudent/${Stu_Id}`,{
+                headers:{
+                    "Authorization":`Bearer ${token}`
+                }
+            })
             //console.log(response);
-            toast.success("Student deleted successfully!")
+            toast.success(response.data.message)
             const data = learner.filter((std)=>std.Roll_No!=Stu_Id)
             setLearner(data)
         }
         catch(err){
-            toast.error("!Delete request failed")
+            toast.error(err.response.data.message)
         }
     }
 

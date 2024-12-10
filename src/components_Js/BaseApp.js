@@ -1,4 +1,4 @@
-import { children } from "react";
+import { children, useEffect } from "react";
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -15,6 +15,18 @@ import { faChildren } from "@fortawesome/free-solid-svg-icons";
 export default function BaseApp({PageTitle,children}){
 
   const navigate = useNavigate();
+
+  useEffect(()=>{
+    const token = localStorage.getItem('token')
+    if(!token){
+      navigate("/")
+    }
+  },[])
+  
+  function logout(){
+    localStorage.clear()
+    navigate("/")
+  }
 
   return(
     <div className="MainParentCont">
@@ -61,7 +73,7 @@ export default function BaseApp({PageTitle,children}){
                       </NavDropdown.Item>
                     </NavDropdown>
                   </Nav>
-                  <Button onClick={()=>navigate("/")} variant="danger"><FontAwesomeIcon icon={faPowerOff} size="lg" style={{color: "#050505",}} />{" "}Logout</Button>
+                  <Button onClick={()=>logout()} variant="danger"><FontAwesomeIcon icon={faPowerOff} size="lg" style={{color: "#050505",}} />{" "}Logout</Button>
                 </Offcanvas.Body>
               </Navbar.Offcanvas>
             </Container>

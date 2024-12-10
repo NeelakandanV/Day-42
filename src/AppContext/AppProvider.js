@@ -12,14 +12,14 @@ const AppProvider=({children})=>{
             try{
                 //students
                 const StuResponse = await axios.get("https://mentor-student-vulz.onrender.com/students")
-                setStudent(StuResponse.data)
-                if(!StuResponse.data){
+                setStudent(StuResponse.data.students)
+                if(!StuResponse.data.students){
                     console.log("Unable to fetch students")
                 }
 
                 //Mentors
                 const MenResponse = await axios.get("https://mentor-student-vulz.onrender.com/mentors")
-                setMentor(MenResponse.data)
+                setMentor(MenResponse.data.MentorData)
                 if(!MenResponse.data){
                     console.log("Unable to fetch Mentors")
                 }

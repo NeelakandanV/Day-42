@@ -4,8 +4,8 @@ URL - https://icyedutech.netlify.app
 
 # Login Credentials
 
-Username = Admin <br/>
-Password - Admin@123
+Username = hari2000venkatesan@gmail.com <br/>
+Password - 12345678
 
 # Backend Source code
 Github - https://github.com/NeelakandanV/Day-41
